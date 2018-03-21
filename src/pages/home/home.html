@@ -1,14 +1,52 @@
 <ion-header>
   <ion-navbar>
     <ion-title>
-      Ionic Blank
+      <ion-icon name="bookmarks"></ion-icon>
+      B-Finder
     </ion-title>
   </ion-navbar>
 </ion-header>
 
 <ion-content padding>
-  The world is your oyster.
+
   <p>
-    If you get lost, the <a href="http://ionicframework.com/docs/v2">docs</a> will be your guide.
+    Introduce los datos de tu libro aquí.
+    <ion-list>
+      <ion-item>
+        <ion-input type="text" placeholder="¿Qué libro estas buscando?" [(ngModel)]="busqueda"></ion-input>
+      </ion-item>
+      <ion-row center>
+        <ion-col text-center>
+          <button ion-button icon-start color="secondary" round (click)="buscarlibro()">
+            <ion-icon name="search"></ion-icon>
+            Buscar libro
+          </button>
+        </ion-col>
+      </ion-row>
+    </ion-list>
   </p>
+
+  <!--Lista para los resultados de la búsqueda-->
+  <ion-list>
+    <!--Contenedor en forma de botón para los resultados-->
+    <button ion-item item-start *ngFor="let libro of (libros | async)?.docs" (click)="mostrarInfo(libro)">
+
+      <!--Evalua si el libro seleccionado cuenta o no con una portada-->
+      <p *ngIf=" libro.cover_i != null">
+        <img width="40" src="http://covers.openlibrary.org/b/id/{{libro.cover_i}}-L.jpg" />
+      </p>
+      <p *ngIf=" libro.cover_i == null">
+        <img width="40" src="../../assets/imgs/book.png" />
+      </p>
+
+      <!--Evalua si se es conocido el título del libro seleccionado (solo por si acaso)-->
+      <p *ngIf=" libro.title != null"> Título: <b>{{ libro.title }}</b> </p>
+      <p *ngIf=" libro.title == null"> Título: <b>Desconocido</b> </p>
+
+      <!--Evalúa si se se conoce el nombre del autor-->
+      <p *ngIf=" libro.author_name != null"> Autor: <b>{{ libro.author_name }}</b> </p>
+      <p *ngIf=" libro.author_name == null"> Autor: <b>Desconocido</b> </p>
+    </button>
+  </ion-list>
+
 </ion-content>

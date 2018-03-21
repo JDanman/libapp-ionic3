@@ -1,0 +1,36 @@
+<ion-header>
+  <ion-navbar color="secondary">
+    <ion-title>{{ libro.title }}</ion-title>
+  </ion-navbar>
+</ion-header>
+
+<ion-content padding>
+  <!--Contenedor (Estiliza el formato)-->
+  <ion-card>
+    
+    <!--Título del libro (Encabezado)-->
+    <ion-card-header>
+      <ion-item class="titulo"><b>{{ libro.title }}</b></ion-item>
+    </ion-card-header>
+
+    <!--Portada del Libro-->
+    <p *ngIf=" libro.cover_i != null">
+      <img width="70" src="http://covers.openlibrary.org/b/id/{{libro.cover_i}}-L.jpg" /> </p>
+    <p *ngIf=" libro.cover_i == null">
+      <img width="70" src="../../assets/imgs/nope.gif" /> </p>
+    
+    <!--Información extra (contenido/relleno)-->
+    <ion-card-content>
+
+      <p *ngIf=" libro.author_name != null"> Autor: <b>{{ libro.author_name }}</b> </p>
+      <p *ngIf=" libro.author_name == null"> Autor: <b>Desconocido</b> </p>
+
+      <p *ngIf=" libro.first_publish_year != null"> Año de publicación: <b>{{ libro.first_publish_year }}</b> </p>
+      <p *ngIf=" libro.first_publish_year == null"> Año de publicación: <b>Desconocido</b> </p>
+
+      <p *ngIf=" libro.time != null"> Ambientación: <b>{{ libro.time }}</b> </p>
+      <p *ngIf=" libro.time == null"> Ambientación: <b>Desconocido</b> </p>
+
+    </ion-card-content>
+  </ion-card>
+</ion-content>
